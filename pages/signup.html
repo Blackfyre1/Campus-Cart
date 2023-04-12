@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page in HTML with CSS Code Example</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+  <link rel="stylesheet" href="signup.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+<body>
+  <div class="box-form">
+    <div class="left">
+      <div class="overlay">
+        <h1>Campus Cart</h1>
+        <p>Welcome to Campus cart signup now to access all the features that we provide!</p>
+      </div>
+    </div>
+    <div class="right">
+      <h5>Sign up</h5>
+      <form name="f1" method="POST" action="./signup">
+        <div class="inputs">
+          <br><input type="text" placeholder="First name" name="fname" id="fname">
+          <br>
+          <input type="text" placeholder="Last name" name="lname" id="lname">
+          <input type="email" placeholder="Email" name="email" , id="email">
+          <input type="password" placeholder="Password" name="password" id="password">
+          <input type="text" placeholder="Number" name="phoneNumber" id="phoneNumber">
+        </div>
+        <div class="remember-me--forget-password">
+          <label></label>
+        </div>
+        <br>
+        <button type="submit" onclick="return validation()">Sign up</button>
+      </form>
+    </div>
+  </div>
+  <script >
+    function validation()
+    {
+      var email=document.f1.email;
+      var fname = document.f1.fname;
+      var lname = document.f1.lname;
+      var phno = document.f1.phonenumber;
+      var pass=document.f1.password;
+      var emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@iiita.ac.in$/;
+      var nameRegex = /^[a-zA-Z]+/;
+      var phoneRegex = /^[0-9]+$/;
+      if(pass.value.length < 8){
+        alert("Password too small");
+        return false;
+      }
+      else if(pass.value.length > 20)
+      {
+        alert("Password too big");
+        return false;
+      }
+      else if(!emailRegex.test(email.value))
+      {
+        alert("Email id is invalid");
+        return false;
+      }
+      else if(!nameRegex.test(fname.value))
+      {
+        alert("First Name must only have letters");
+        return false;
+      }
+      else if(!nameRegex.test(lname.value))
+      {
+        alert("Last Name must only have letters");
+        return false;
+      }
+      else if(!phoneRegex.test(phno.value) || phno.value.length !== 10)
+      {
+        alert("Phone number invalid");
+        return false;
+      }
+    }
+  </script>
+</body>
+</html>

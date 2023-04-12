@@ -1,0 +1,27 @@
+body {
+  background-image: url("images/background.png");
+  background-color: aquamarine;
+  font-family: sans-serif;
+  align-items: center;
+}
+img {
+    display: flex;
+  width: 300px;
+  height: 400px;
+  float: left;
+  margin-right: 30px;
+}
+.div1 {
+  /* align-items: center; */
+  margin: auto;
+  padding: 10px;
+  border-radius: 25px;
+  background: white;
+  padding: 20px;
+  width: 90%;
+  height: 850px;
+}
+
+.div3 {
+    display: inline;
+}
