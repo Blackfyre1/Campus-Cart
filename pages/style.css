@@ -1,210 +1,264 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,900;1,100;1,400&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,900;1,100;1,400&family=Poppins:wght@300;400;500;600;700&display=swap");
 
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+input[type="text"] {
+  width: 100px;
+}
+.containersearch{
+  width: 100%;
+  /* min-height: 100vh; */
+  /* background-image: linear-gradient(rgba(78, 234, 148, 0.9),rgba(0,8,51,0.9)),url(images/backsearch.jpg); */
+  background-position: center;
+  background-size:auto;
+  background-repeat: no-repeat;
+  /* background-size: 100% 100%; */
+  padding-top: 137px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search-bar{
+  /* position: fix; */
+  top: 10%;
+  width: 100%;
+  max-width: 700px;
+  max-height: 70px;
+  background: hsl(0, 2%, 66%);
+  display: flex;
+  align-items: center;
+  border-radius: 60px;
+  padding: 10px 20px;
+}
+.search-bar input{
+  background: transparent;
+  flex: 1;
+  border: 0;
+  outline: none;
+  padding: 24px 20px;
+  font-size: 20px;
+  color: black;
+}
+::placeholder{
+  color:black;
+}
+.search-bar button img{
+  width: 25px;
+}
+.search-bar button{
+  border: 0;
+  border-radius: 50%;
+  width: 60px;
+  height: 50px;
+  background: orange;
+  cursor: pointer;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-    font-family: 'Poppins',sans-serif;
+body {
+  font-family: "Poppins", sans-serif;
 }
 
-h1{
-    font-size: 2.5rem;
-    font-weight: 700;
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
 }
 
-h2{
-    font-size: 1.8rem;
-    font-weight: 600;
+h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 
-h3{
-    font-size: 1.4rem;
-    font-weight: 800;
+h3 {
+  font-size: 1.4rem;
+  font-weight: 800;
 }
 
-h4{
-    font-size: 1.1rem;
-    font-weight: 600;
+h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
-h5{
-    font-size: 1rem;
-    font-weight: 400;
-    color: #1d1d1d;
+h5 {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #1d1d1d;
 }
 
-hr{
-    width: 60px;
-    height: 2px;
-    background-color: coral;
+hr {
+  width: 60px;
+  height: 2px;
+  background-color: coral;
 }
 
-.navbar{
-    font-size: 16px;
-    top:0;
-    left: 0;
+.navbar {
+  font-size: 16px;
+  top: 0;
+  left: 0;
 }
 
-.navbar-light .navbar-nav .nav-link{
-    padding: 0 20px;
-    color: black;
-    transition: 0.3s ease;
+.navbar-light .navbar-nav .nav-link {
+  padding: 0 0.8em;
+  color: black;
+  transition: 0.3s ease;
 }
 
 .navbar-light .navbar-nav .nav-link:hover,
 .navbar i:hover,
 .navbar-light .navbar-nav .nav-link.active,
-.navbar i.active
-{
-    color: coral;
+.navbar i.active {
+  color: coral;
 }
 
 .navbar i {
-    font-size: 1.2rem;
-    padding: 0 7px;
-    cursor: pointer;
-    transition: 0.3s ease;
+  font-size: 1.2rem;
+  padding: 0 7px;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 
-#home{
-    background-image: url("images/sellimage.jpg");
-    width: 100%;
-    height: 90vh;
-    background-size: cover;
-    background-position:top 60px centre;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-
+#home {
+  background-image: url("images/sellimage.jpg");
+  width: 100%;
+  height: 90vh;
+  background-size: cover;
+  background-position: top 60px centre;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-#home span{
-    color: coral;
-
+#home span {
+  color: coral;
 }
-.btn{
-    font-size: 0.8rem;
-    font-weight: 700;
-    width: 150px;
+.btn {
+  font-size: 0.8rem;
+  font-weight: 700;
+  width: 150px;
 }
 
 .team {
-    background: #fff;
-    padding: 60px 0;
-  }
-  
-  .team .member {
-    text-align: center;
-    margin-bottom: 20px;
-    background: #343a40;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .team .member .member-info {
-    opacity: 0;
-    position: absolute;
-    bottom: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    transition: 0.2s;
-  }
-  
-  .team .member .member-info-content {
-    position: absolute;
-    left: 50px;
-    right: 0;
-    bottom: 0;
-    transition: bottom 0.4s;
-  }
-  
-  .team .member .member-info-content h4 {
-    font-weight: 700;
-    margin-bottom: 2px;
-    font-size: 18px;
-    color: #fff;
-  }
-  
-  .team .member .member-info-content span {
-    font-style: italic;
-    display: block;
-    font-size: 13px;
-    color: #fff;
-  }
-  
-  .team .member .social {
-    position: absolute;
-    left: -50px;
-    top: 0;
-    bottom: 0;
-    width: 50px;
-    transition: left ease-in-out 0.3s;
-    background: rgba(78, 64, 57, 0.6);
-    text-align: center;
-  }
-  
-  .team .member .social a {
-    transition: color 0.3s;
-    display: block;
-    color: #fff;
-    margin-top: 15px;
-  }
-  
-  .team .member .social a:hover {
-    color: #eb5d1e;
-  }
-  
-  .team .member .social i {
-    font-size: 18px;
-    margin: 0 2px;
-  }
-  
-  .team .member:hover .member-info {
-    background: linear-gradient(0deg, rgba(78, 64, 57, 0.95) 0%, rgba(78, 64, 57, 0.95) 15%, rgba(255, 255, 255, 0) 100%);
-    opacity: 1;
-    transition: 0.4s;
-  }
-  
-  .team .member:hover .member-info-content {
-    bottom: 30px;
-    transition: bottom 0.4s;
-  }
-  
-  .team .member:hover .social {
-    left: 0;
-    transition: left ease-in-out 0.3s;
-  }
-  
+  background: #fff;
+  padding: 60px 0;
+}
+
+.team .member {
+  text-align: center;
+  margin-bottom: 20px;
+  background: #343a40;
+  position: relative;
+  overflow: hidden;
+}
+
+.team .member .member-info {
+  opacity: 0;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  transition: 0.2s;
+}
+
+.team .member .member-info-content {
+  position: absolute;
+  left: 50px;
+  right: 0;
+  bottom: 0;
+  transition: bottom 0.4s;
+}
+
+.team .member .member-info-content h4 {
+  font-weight: 700;
+  margin-bottom: 2px;
+  font-size: 18px;
+  color: #fff;
+}
+
+.team .member .member-info-content span {
+  font-style: italic;
+  display: block;
+  font-size: 13px;
+  color: #fff;
+}
+
+.team .member .social {
+  position: absolute;
+  left: -50px;
+  top: 0;
+  bottom: 0;
+  width: 50px;
+  transition: left ease-in-out 0.3s;
+  background: rgba(78, 64, 57, 0.6);
+  text-align: center;
+}
+
+.team .member .social a {
+  transition: color 0.3s;
+  display: block;
+  color: #fff;
+  margin-top: 15px;
+}
+
+.team .member .social a:hover {
+  color: #eb5d1e;
+}
+
+.team .member .social i {
+  font-size: 18px;
+  margin: 0 2px;
+}
+
+.team .member:hover .member-info {
+  background: linear-gradient(
+    0deg,
+    rgba(78, 64, 57, 0.95) 0%,
+    rgba(78, 64, 57, 0.95) 15%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  opacity: 1;
+  transition: 0.4s;
+}
+
+.team .member:hover .member-info-content {
+  bottom: 30px;
+  transition: bottom 0.4s;
+}
+
+.team .member:hover .social {
+  left: 0;
+  transition: left ease-in-out 0.3s;
+}
+
 /* Products */
 
-.product{
-    cursor: pointer;
-    margin-bottom: 2rem;
+.product {
+  cursor: pointer;
+  margin-bottom: 2rem;
 }
 
-.product img{
-    transition: 0.3s all;
+.product img {
+  transition: 0.3s all;
 }
 
-.product:hover img{
-    opacity: 0.7;
-
+.product:hover img {
+  opacity: 0.7;
 }
 
-.product .btn{
-    transform: translateY(20px);
-    opacity: 0;
-    transition: 0.3s all;
+.product .btn {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: 0.3s all;
 }
 
-.product:hover .btn{
-    transform: translateY(0);
-    opacity: 1;
+.product:hover .btn {
+  transform: translateY(0);
+  opacity: 1;
+}
 
+.mt-5, .my-5 {
+  margin-top: 0rem!important;
 }

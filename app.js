@@ -179,6 +179,19 @@ app.get('/products', (req, res) => {
         res.status(400).send(e)
     })
 });
+app.get('/product', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    const criteria = req.query ; 
+    console.log(criteria.name + " fewfwefewfwefwefwfwefewfew")
+    // MyModel.findOne({ name: { $regex: new RegExp('^myname$', 'i') } }).collation({ locale: 'en', strength: 2 });
+    Product.find({name: criteria.name}).collation({ locale: 'en', strength: 2 }).then(( Products) => {
+        console.log(Products)
+        res.status(200).json(Products)
+    }).catch((e)=>{
+        console.log("Unable to load people!")
+        res.status(400).send(e)
+    })
+});
 
 
 app.get('/signup', function (req, res) {
