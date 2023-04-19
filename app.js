@@ -7,6 +7,7 @@ const { config } = require('process');
 const multer = require("multer");
 const fs = require("fs");
 var cors = require('cors');
+const { StringDecoder } = require('string_decoder');
 const secretKey = 'secret';
 
 mongoose.Promise = global.Promise;
@@ -29,11 +30,7 @@ var loginSchema = new mongoose.Schema({
 var productschema = new mongoose.Schema({
     name: String,
     email: String,
-    img:
-    {
-        data: Buffer,
-        contentType: String
-    },
+    img:String,
     description: String,
     phno: String,
     condition: String
@@ -75,7 +72,10 @@ var storage = multer.diskStorage({
     }
   })
 
-var upload = multer({ storage: storage })
+var upload = multer({ 
+    storage: storage,
+    dest: __dirname + "uploads"
+ })
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -120,31 +120,42 @@ app.post('/login', (req, res) => {
     })
 });
 
-app.post('/productInput', function(req, res,next) {
-    upload.single('img')(req, res, function (error) {
-        if (error) {
-          console.log(`upload.single error: ${error}`);
-          return res.sendStatus(500);
-        }
-    
+app.post('/productInput',upload.single("image"),(req, res) => {
+    var x = Math.random().toString(36).slice(2, 12) + '.png';
+    const tempPath = req.file.path;
+    const targetPath = path.join(__dirname, "./uploads/" + x);
+    if (path.extname(req.file.originalname).toLowerCase() === ".png") {
+        fs.rename(tempPath, targetPath, err => {
+          if (err) return handleError(err, res);
+  
+          res
+            .status(200)
+            .contentType("text/plain")
+            .end("File uploaded!");
+        });
+      } else {
+        fs.unlink(tempPath, err => {
+          if (err) return handleError(err, res);
+  
+          res
+            .status(403)
+            .contentType("text/plain")
+            .end("Only .png files are allowed!");
+        });
+      }
+
     var myData = new Product({
         name: req.body.name,
         description: req.body.description,
         email: req.body.email,
         phno: req.body.phno,
-        // img: {
-        //     data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-        //     contentType: 'image/png'
-        // }
+        img: x
     });
     myData.save()
     .then(item => {
-    res.send("Product saved successfully");
     })
     .catch(err => {
     res.status(400).send("unable to save to database");
-    });
-    
     });
 });
 
