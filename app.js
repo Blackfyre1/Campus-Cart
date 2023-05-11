@@ -281,10 +281,10 @@ app.get('/admin', function (req, res) {
 app.get('/userdashboard', function (req, res) {
     console.log(req.cookies.auth);
     try {
-        var token = req.cookies.auth;
-        console.log(token);
-        const decoded = verifyUserToken(token);
-        console.log('Decoded:', decoded);
+        // var token = req.cookies.auth;
+        // console.log(token);
+        // const decoded = verifyUserToken(token);
+        // console.log('Decoded:', decoded);
         let x = path.join(__dirname);
         res.sendFile(x + '/pages/user.html');
       }
@@ -363,14 +363,22 @@ app.get('/product', (req, res) => {
     })
 });
 
-app.get('/userProduct', (req, res) => {
+app.get('/relations',(req,res)=>{
+UserProduct.find().then((data)=>{
+    res.status(200).json(data)
+})
+})
+
+app.get('/userProduct', async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     const criteria = req.cookies.loginemail; 
     // console.log(criteria.name + " fewfwefewfwefwefwfwefewfew")
     // MyModel.findOne({ name: { $regex: new RegExp('^myname$', 'i') } }).collation({ locale: 'en', strength: 2 });
-    Product.find({email: criteria}).then(( Products) => {
+    const user = await SignUp.findOne({email: "IIT2021153@iiita.ac.in"})
+    console.log("usr is"+ user)
+    const prodcts = await UserProduct.findOne({UserID: user._id}).then(( Products) => {
         console.log(Products)
-        res.status(200).json(Products)
+        res.status(200).json(Products.ProductID)
     }).catch((e)=>{
         console.log("Unable to load people!")
         res.status(400).send(e)
