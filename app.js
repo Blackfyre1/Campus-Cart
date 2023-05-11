@@ -34,13 +34,13 @@ var productschema = new mongoose.Schema({
     exp_price: Number
 })
 var contactSchema = new mongoose.Schema({
-    UserID: String,
-    description: String
+    email: String,
+    description: String,
 })
 
 var userProductSchema = new mongoose.Schema({
     UserID: String,
-    ProductID: String
+    ProductID: Array,
 })
 
 module.exports={     
@@ -54,10 +54,10 @@ module.exports={
     }
 }
 
-var Login = mongoose.model("Login", loginSchema,"Login");
 var SignUp = mongoose.model("SignUp", signUpSchema,"SignUp");
 var Product = mongoose.model("Product", productschema,"Product");
 var Contact = mongoose.model("Contact", contactSchema,"Contact");
+var UserProduct = mongoose.model("UserProductRelation", userProductSchema,"UserProductRelation");
 
 
 var app = express();
@@ -189,12 +189,21 @@ app.post('/login_user', (req, res) => {
 app.post('/Contact',async (req, res) => {
     console.log(req.body)
     var myData = new Contact(req.body);
-    console.log(myData)
-         await myData.save();
+    if(req.cookies.loginemail != '')
+    {
+        myData.email = req.cookies.loginemail;
+        await myData.save();
+        res.redirect('/userdashboard');
+    }
+    else
+    {
+        console.log(myData)
+        await myData.save();
         res.redirect('/');
+    }
     })
 
-app.post('/productInput',upload.single("image"),(req, res) => {
+app.post('/productInput',upload.single("image"),async (req, res) => {
     var x = Math.random().toString(36).slice(2, 12) + '.png';
     const tempPath = req.file.path;
     const targetPath = path.join(__dirname, "./uploads/" + x);
@@ -221,18 +230,28 @@ app.post('/productInput',upload.single("image"),(req, res) => {
     var myData = new Product({
         name: req.body.name,
         description: req.body.description,
-        email: req.body.email,
-        phno: req.body.phno,
         condition: req.body.condition,
         exp_price: req.body.exp_price,
         img: x
     });
-    myData.save()
-    .then(item => {
-    })
-    .catch(err => {
-    res.status(400).send("unable to save to database");
-    });
+        myData.save()
+        var x = await SignUp.findOne({email:req.cookies.loginemail});
+        console.log(x);
+        doc = await UserProduct.findOne({UserID:x._id});
+        console.log(doc);
+        if(doc === null){
+            var userrel = UserProduct({
+                UserID: x._id,
+                ProductID: myData._id
+            })
+            userrel.save();
+            console.log(userrel);
+        }
+        else
+        {
+            doc.ProductID.push(myData);
+            userrel = await UserProduct.findOneAndUpdate({ID:x._id},doc,{new: true});
+        }
 });
 
 app.get('/', function (req, res) {
@@ -318,6 +337,7 @@ app.get('/contacts', (req, res) => {
         }).status(400);
     })
 });
+
 app.get('/products', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     Product.find().then(( allProducts) => {
@@ -328,6 +348,7 @@ app.get('/products', (req, res) => {
         res.status(400).send(e)
     })
 });
+
 app.get('/product', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     const criteria = req.query ; 
@@ -368,7 +389,14 @@ app.get('/login', function (req, res) {
 
 app.get('/contact', function (req, res) {
     let x = path.join(__dirname,'pages');
-    res.sendFile(x + '/contact.html');
+    if(req.cookies.loginemail != '')
+    {
+        res.sendFile(x + '/contactloggedin.html');
+    }
+    else
+    {
+        res.sendFile(x + '/contact.html');
+    }
 });
 
 app.get('/productform', function (req, res) {
