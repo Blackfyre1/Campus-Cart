@@ -14,7 +14,7 @@ const { StringDecoder } = require('string_decoder');
 const secretKey = 'secret';
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://127.0.0.1:11020/Campus-Cart');
+mongoose.connect('mongodb+srv://admin:xhBJxsjAn8oLKR6k@main.dttg1p4.mongodb.net/CampusCart');
 const adminKey = 'admin';
 const userKey = 'user';
 
@@ -23,29 +23,24 @@ var signUpSchema = new mongoose.Schema({
     fname: String,
     lname: String,
     phno: String,
-    admin: Boolean,
-    password: String
-   });
-
-var loginSchema = new mongoose.Schema({
-    email: String,
     password: String
    });
 
 var productschema = new mongoose.Schema({
     name: String,
-    email: String,
     img:String,
     description: String,
-    phno: String,
     condition: String,
     exp_price: Number
 })
 var contactSchema = new mongoose.Schema({
-    fname: String,
-    lname: String,
-    email:String,
-    description: String,
+    UserID: String,
+    description: String
+})
+
+var userProductSchema = new mongoose.Schema({
+    UserID: String,
+    ProductID: String
 })
 
 module.exports={     
