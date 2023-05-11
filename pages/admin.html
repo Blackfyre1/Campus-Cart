@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Page</title>
+    <style>
+      /* Style for the card container */
+      .card {
+        background-color: #fff;
+        border-radius: 6px;
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        margin-bottom: 20px;
+        position: relative;
+      }
+      
+      .container {
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        margin: 20px;
+        position: relative;
+      }
+
+      /* Style for the card labels */
+      .label {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      /* Style for the card values */
+      .value {
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      /* Style for the delete button */
+      .delete-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #f44336;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Style for the delete button on hover */
+      .delete-button:hover {
+        background-color: #d32f2f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <h2 class="title">Admin Dashboard</h2>
+      </div>
+  
+    <section id="contact">
+    
+</section>
+  </body>
+  <script>
+    var deleteContact = function (id){
+        fetch('http://localhost:3000/deleteContact?id=' + id)
+    console.log(id)
+    location.reload()
+    }
+    fetch('http://localhost:3000/contacts').then((jsondata)=>{
+        return jsondata.json().then((datas)=>{
+            var parent = document.getElementById('contact')
+            datas.forEach(element => {
+                var temp = document.createElement('ee')
+                temp.innerHTML = `<div class="card">
+      <div class="delete-button" onclick="deleteContact('${element._id}')">X</div>
+      <div class="label">First Name:</div>
+      <div class="value">${element.fname}</div>
+      <div class="label">Last Name:</div>
+      <div class="value">${element.lname}</div>
+      <div class="label">Email:</div>
+      <div class="value">${element.email}</div>
+      <div class="label">Description:</div>
+      <div class="value">${element.description}</div>
+    </div>`
+    parent.appendChild(temp)
+                
+            });
+        })
+    })
+  </script>
+</html>

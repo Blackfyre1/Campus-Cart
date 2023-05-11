@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>User Dashboard</title>
+    <style>
+
+.navbar {
+  font-size: 16px;
+  top: 0;
+  left: 0;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  padding: 0 0.8em;
+  color: black;
+  transition: 0.3s ease;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar i:hover,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar i.active {
+  color: coral;
+}
+
+.navbar i {
+  font-size: 1.2rem;
+  padding: 0 7px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+      /* Header Styling */
+      .header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+      }
+
+      /* Container Styling */
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+      }
+
+      /* Card Styling */
+      .card {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 10px;
+        width: 80%;
+        max-width: 800px;
+        box-shadow: 2px 2px 5px #ccc;
+      }
+
+      /* Image Styling */
+      .image {
+        flex: 1;
+        background-color: #f5f5f5;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .image img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      /* Schema Styling */
+      .schema {
+        flex: 2;
+        padding: 10px;
+      }
+
+      .schema h2 {
+        font-size: 24px;
+        margin: 0 0 10px;
+      }
+
+      .schema p {
+        font-size: 16px;
+        margin: 0 0 10px;
+        line-height: 1.5;
+      }
+
+      .schema p.description {
+        font-style: italic;
+      }
+
+      .schema p.phno {
+        font-weight: bold;
+      }
+
+      .schema p.condition {
+        font-weight: bold;
+        color: #090;
+      }
+
+      .schema p.exp_price {
+        font-weight: bold;
+        color: #f00;
+        font-size: 20px;
+        margin: 20px 0 0;
+      }
+
+      /* Button Styling */
+      button {
+        background-color: #f00;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+
+      button:hover {
+        background-color: #900;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+          <ul class="navbar-nav ml-auto navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="/productdetails">Buy Now</a>
+            </li> -->
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="/about">About Us</a>
+            </li> -->
+            <li class="nav-item">
+              <a class="nav-link" href="/shop">Buy Now</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/productform">Sell</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/contact">Contact Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Log Out</a>
+            </li>
+            
+        </div>
+      </div>
+    </nav>
+
+
+    <div class="header">
+      User Dashboard
+    </div>
+
+   
+ <div class="container">
+    <section id="user">
+        
+    </section>
+    </div>
+</body>
+<script>
+    var deleteProduct = function (id){
+        fetch('http://localhost:3000/deleteProduct?id=' + id)
+    console.log(id)
+    location.reload()
+    }
+    fetch('http://localhost:3000/userProduct').then((jsondata)=>{
+        return jsondata.json().then((datas)=>{
+            var parent = document.getElementById('user')
+            datas.forEach(element => {
+                var temp = document.createElement('ee')
+                temp.innerHTML = `<div class="card">
+        <div class="image">
+          <img src="../uploads/${element.img}" alt="User Image" >
+        </div>
+    
+        <div class="schema">
+          <h2>${element.name}</h2>
+          <p class="description">${element.description}</p>
+          <p class="phno">${element.phno}</p>
+          <p class="condition">${element.condition}</p>
+          <p class="exp_price">${element.exp_price}</p>
+          <button onclick="deleteProduct('${element._id}')">Delete</button>
+        </div>
+      </div>`
+    parent.appendChild(temp)
+                
+            });
+        })
+    })
+</script>
+</html>    
